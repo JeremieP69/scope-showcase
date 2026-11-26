@@ -2,7 +2,7 @@
 
 **Try the product journey before building the backend. Keep the version you approved as the reference for delivery.**
 
-A requirement can sound clear in a product requirements document (PRD) and still leave a team guessing. When someone taps a button on a watch, does a check mark mean the tap registered, or that the remote device acted? That distinction changes the interface, the API and the acceptance test.
+A product requirements document (PRD) describes what the team intends to build. Decisions made while trying the prototype can get lost when engineers turn that document into stories and tests.
 
 SCOPE is a product development workflow for teams working with AI agents. Product and engineering can try the journey with simulated data, agree on what users should see, and reuse the prototype’s components as real services come online.
 
@@ -20,21 +20,15 @@ flowchart LR
 
 An independent reviewer checks the prototype against the full PRD, including requirements the demo may have missed. Human approval identifies the exact revision engineering will use. An open technical question can still block the story that depends on it.
 
-## One decision on a watch
+## From a requirement to an acceptance test
 
-This public demo recreates a decision from a watch prototype used to exercise SCOPE. The devices and data are fictional. Try arming the alarm twice. Confirm the first request, then drop the connection during the second. [Try the interactive example](https://jeremiep69.github.io/scope-showcase/)
-
-![The simulated watch shows “Status unknown” after the connection drops before confirmation.](media/watch-example.png)
-
-| PRD requirement | Prototype state | Delivery story | Acceptance test |
-| --- | --- | --- | --- |
-| Show when the alarm confirms arming. | Tap **Arm** → **Waiting** → **Armed** on confirmation. | Connect the status view to the device response. | Delay the response. The watch stays in **Waiting** until confirmation arrives. |
-| Tell the wearer when the outcome is unknown. | Tap **Arm** → **Waiting** → **Status unknown** on disconnect. | Handle a lost connection while a request is pending. | Disconnect before confirmation. The watch shows **Status unknown**. |
-
-If a team changes the confirmation rule, SCOPE uses recorded dependencies to identify affected screens, copy, stories and tests. The team can review that list before changing the shared status component.
+- **PRD.** “I want to arm my alarm from my watch.” What should I see if the connection drops after I tap *Arm*?
+- **Prototype decision.** Show *Armed* only after the alarm confirms. If the connection drops first, show *Status unknown*.
+- **Story and test.** Handle loss of connection while confirmation is pending. Send the request, disconnect before the reply, and verify that the watch shows *Status unknown*. [Try the simulation](https://jeremiep69.github.io/scope-showcase/)
 
 ## What works today
 
+- **Change impact.** When a requirement or prototype decision changes, SCOPE uses recorded dependencies to identify affected screens, copy, stories and tests.
 - **Design system.** The prototype and its component gallery use the same UI sources. A UI catalogue records which journeys use each component and state.
 - **Feature and API discovery.** A feature catalogue links existing capabilities to delivered stories. API contracts and data dependencies help engineers find an existing operation and see which consumers a change may affect.
 - **Workflow reporting.** SCOPE can report recorded duration and token usage. The method is still being validated. Reducing rework, delivery time and token consumption are goals with no published benchmarks.
