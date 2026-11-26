@@ -6,6 +6,8 @@ A product requirements document (PRD) describes what the team intends to build. 
 
 SCOPE is a product development workflow for teams working with AI agents. Product and engineering can try the journey with simulated data, agree on what users should see, and reuse the prototype’s components as real services come online.
 
+The SCOPE implementation is currently private. This public showcase explains the workflow and includes an interactive example.
+
 ## From need to release
 
 ```mermaid
