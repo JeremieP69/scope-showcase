@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When is an alarm armed? · SCOPE</title>
+<style>
+* {box-sizing:border-box} body {margin:0;background:#f4f3ed;color:#142f2b;font:1rem/1.5 "DM Sans",system-ui,sans-serif}
+main {width:min(52rem,100%);margin:auto;padding:clamp(1rem,5vw,4rem)}
+a {color:#185e50} h1 {font-size:clamp(2rem,6vw,3.7rem);letter-spacing:-.055em;line-height:1.05;margin:.65em 0 .3em}
+section {margin:2rem 0;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.watch {background:#102c28;color:white;border:9px solid #536761;border-radius:3rem;padding:2rem 1rem;width:15rem;min-height:15rem;display:grid;align-content:center;justify-items:center;text-align:center;gap:.6rem}
+.watch small {color:#b9d8cf} strong {font-size:1.55rem} button {font:inherit;border-radius:.6rem;border:1px solid #526d64;background:white;color:#153d34;padding:.6rem 1rem;cursor:pointer}
+button:disabled {opacity:.48;cursor:default} button:focus-visible,a:focus-visible {outline:3px solid #c87526;outline-offset:3px}
+.controls {flex:1;min-width:min(100%,14rem)} .controls button {margin:0 .2rem .45rem 0} h2 {font-size:1.15rem}
+</style>
+<main>
+<a href="https://github.com/JeremieP69/scope-showcase">← SCOPE overview</a>
+<h1>When is an alarm armed?</h1>
+<p>Tap <b>Arm</b> on the watch, then choose what happens at the simulated device. Try both outcomes.</p>
+<section aria-label="Alarm simulation">
+<div class="watch"><small>WATCH · ALARM</small><strong id="status" aria-live="polite">Disarmed</strong><button id="arm" type="button">Arm</button></div>
+<div class="controls"><h2>Simulated device</h2>
+<button id="confirm" disabled>Confirm arming</button><button id="disconnect" disabled>Drop connection</button>
+<p id="detail" aria-live="polite">The device starts disarmed.</p><button id="reset" disabled>Start again</button></div>
+</section>
+<noscript>Enable JavaScript to try the watch simulation.</noscript>
+</main>
+<script>
+const get = id => document.getElementById(id);
+const states = {
+  idle: ['Disarmed', 'The device starts disarmed.'],
+  pending: ['Waiting', 'The watch has sent the request. The device has yet to confirm.'],
+  armed: ['Armed', 'The watch received confirmation from the device.'],
+  unknown: ['Status unknown', 'The connection dropped before confirmation. The watch cannot tell whether the alarm armed.']
+};
+function show(state) {
+  const [label, detail] = states[state];
+  get('status').textContent = label;
+  get('detail').textContent = detail;
+  get('arm').disabled = state !== 'idle';
+  get('confirm').disabled = get('disconnect').disabled = state !== 'pending';
+  get('reset').disabled = state === 'idle';
+  get({idle:'arm',pending:'confirm',armed:'reset',unknown:'reset'}[state]).focus();
+}
+for (const [id, state] of Object.entries({arm:'pending',confirm:'armed',disconnect:'unknown',reset:'idle'})) {
+  get(id).addEventListener('click', () => show(state));
+}
+</script>
+</html>
