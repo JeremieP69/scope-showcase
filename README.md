@@ -22,7 +22,7 @@ An independent reviewer checks the prototype against the full PRD, including req
 
 ## One decision on a watch
 
-**[Try the interactive example](https://jeremiep69.github.io/scope-showcase/)** · A standalone simulation with fictional devices and data.
+This public demo recreates a decision from a watch prototype used to exercise SCOPE. The devices and data are fictional. Try arming the alarm twice. Confirm the first request, then drop the connection during the second. [Try the interactive example](https://jeremiep69.github.io/scope-showcase/)
 
 ![The simulated watch shows “Status unknown” after the connection drops before confirmation.](media/watch-example.png)
 
@@ -39,4 +39,8 @@ If a team changes the confirmation rule, SCOPE uses recorded dependencies to ide
 - **Feature and API discovery.** A feature catalogue links existing capabilities to delivered stories. API contracts and data dependencies help engineers find an existing operation and see which consumers a change may affect.
 - **Workflow reporting.** SCOPE can report recorded duration and token usage. The method is still being validated. Reducing rework, delivery time and token consumption are goals with no published benchmarks.
 
-SCOPE draws on BMAD Method for role-based collaboration, Spec Kit for requirements and planning, Design OS for reusable prototypes, and Superpowers for independent verification.
+## Design influences
+
+Role-based collaboration draws on [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD). Turning requirements into a delivery plan draws on [Spec Kit](https://github.com/github/spec-kit).
+
+Two ideas shaped the handoff to engineering. Separating UI components from sample data lets the team reuse the approved interface when it connects live services. Checking the delivered behaviour against evidence gives the reviewer a way to challenge a completion claim. These ideas draw on [Design OS](https://github.com/buildermethods/design-os) and [Superpowers](https://github.com/obra/superpowers), respectively.
